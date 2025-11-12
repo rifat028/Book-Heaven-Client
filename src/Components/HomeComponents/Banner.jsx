@@ -20,7 +20,7 @@ const Banner = () => {
       title: "Build The Haven",
       text: "Share your favorite books with the community in a few simple steps.",
       buttonText: "Create New Book",
-      buttonLink: "/add-book",
+      buttonLink: "/add-books",
       gradient: "from-indigo-800 to-purple-900",
       buttonClasses: "bg-green-400 hover:bg-green-500 text-purple-900",
     },
