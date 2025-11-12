@@ -22,12 +22,12 @@ const Banner = () => {
       buttonText: "Create New Book",
       buttonLink: "/add-books",
       gradient: "from-indigo-800 to-purple-900",
-      buttonClasses: "bg-green-400 hover:bg-green-500 text-purple-900",
+      buttonClasses: "bg-yellow-400 hover:bg-yellow-500 text-blue-900",
     },
   ];
 
   const buttonBaseClasses =
-    "font-bold text-lg md:text-xl py-3 px-8 rounded-full transition duration-300 transform hover:scale-105 shadow-lg min-w-[200px] text-center";
+    "font-bold text-lg md:text-xl py-3 px-8 rounded-full shadow-lg min-w-[200px] text-center";
 
   return (
     <section className="banner w-full h-[500px] mb-12 shadow-2xl overflow-hidden relative">
@@ -71,12 +71,14 @@ const Banner = () => {
               <p className="text-xl md:text-2xl lg:text-3xl mb-10 font-light opacity-90 max-w-3xl mx-auto">
                 {slide.text}
               </p>
-              <Link
-                to={slide.buttonLink}
-                className={`${buttonBaseClasses} ${slide.buttonClasses}`}
-              >
-                {slide.buttonText}
-              </Link>
+              <div className=" transition duration-300 transform hover:scale-105">
+                <Link
+                  to={slide.buttonLink}
+                  className={`${buttonBaseClasses} ${slide.buttonClasses}`}
+                >
+                  {slide.buttonText}
+                </Link>
+              </div>
             </div>
           </SwiperSlide>
         ))}

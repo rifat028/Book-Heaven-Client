@@ -1,0 +1,20 @@
+/* Add this to your main CSS file (e.g., index.css) */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+/* Optional: If you want a slight delay for elements within the banner */
+/* You could add classes like .animate-delay-200, .animate-delay-400 etc.
+   and then use animation-delay property */
