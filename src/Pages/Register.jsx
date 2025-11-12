@@ -1,11 +1,24 @@
-import React, { useState } from "react";
+import React, { use, useRef, useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { IoMdEyeOff } from "react-icons/io";
 import { IoEye } from "react-icons/io5";
+import { AuthContext } from "../Authentication/AuthContext";
 
 const Register = () => {
+  const { CreateUserWithEmail } = use(AuthContext);
+
   const [eye, setEye] = useState(false);
-  const error = null;
+  const [error, setError] = useState(null);
+
+  const HandleRegister = (e) => {
+    e.preventDefault();
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    const photoUrl = e.target.photoUrl.value;
+    // console.log(name, email, photoUrl, password);
+    CreateUserWithEmail(email, password).then().catch();
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
@@ -20,10 +33,7 @@ const Register = () => {
           </p>
         </div>
 
-        <form
-          className="space-y-3"
-          // onSubmit={HandleRegister}
-        >
+        <form className="space-y-3" onSubmit={HandleRegister}>
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Full Name <span className="text-red-500">*</span>
