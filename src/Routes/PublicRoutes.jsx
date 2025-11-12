@@ -5,12 +5,18 @@ import Register from "../Pages/Register";
 import MyBooks from "../Pages/MyBooks";
 import AddBooks from "../Pages/AddBooks";
 import AllBooks from "../Pages/AllBooks";
+import Layout from "../Layout/Layout";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    Component: Home,
+    Component: Layout,
     children: [
+      {
+        index: true,
+        path: "/",
+        Component: Home,
+      },
       {
         path: "/login",
         Component: Login,
