@@ -95,7 +95,7 @@ const Login = () => {
             // onClick={HandleGoogleLogIn}
           >
             <FaGoogle />
-            Login with Google
+            Sign In with Google
           </button>
         </div>
 
@@ -106,7 +106,7 @@ const Login = () => {
               href="/register"
               className="font-medium text-indigo-600 hover:text-indigo-500 ml-1"
             >
-              Sign Up
+              Register Now
             </a>
           </p>
         </div>
