@@ -9,7 +9,7 @@ const Header = () => {
   const navigate = useNavigate();
   const { user, logOutUser } = use(AuthContext);
 
-  console.log(user);
+  // console.log(user);
 
   const links = (
     <>

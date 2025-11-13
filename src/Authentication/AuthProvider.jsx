@@ -54,7 +54,6 @@ const AuthProvider = ({ children }) => {
       setTimeout(() => {
         setLoading(false);
       }, 700);
-
       //   console.log(currentUser);
     });
     return () => {
