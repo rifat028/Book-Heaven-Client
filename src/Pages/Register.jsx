@@ -1,14 +1,22 @@
-import React, { use, useRef, useState } from "react";
+import React, { use, useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { IoMdEyeOff } from "react-icons/io";
 import { IoEye } from "react-icons/io5";
 import { AuthContext } from "../Authentication/AuthContext";
+import toast from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router";
 
 const Register = () => {
-  const { CreateUserWithEmail } = use(AuthContext);
+  const { CreateUserWithEmail, updateProfileInfo, GoogleSignIN } =
+    use(AuthContext);
+  const navigate = useNavigate();
 
   const [eye, setEye] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
+
+  const passwordUpperCase = /(?=.*[A-Z])/;
+  const passwordLowerCase = /(?=.*[a-z])/;
 
   const HandleRegister = (e) => {
     e.preventDefault();
@@ -17,12 +25,60 @@ const Register = () => {
     const password = e.target.password.value;
     const photoUrl = e.target.photoUrl.value;
     // console.log(name, email, photoUrl, password);
-    CreateUserWithEmail(email, password).then().catch();
+
+    setError("");
+    if (password.length < 6) {
+      setError("Password must be at least 6 character long");
+      return;
+    }
+    if (!passwordUpperCase.test(password)) {
+      setError("Must have an Uppercase letter in the password");
+      return;
+    }
+    if (!passwordLowerCase.test(password)) {
+      setError("Must have a Lowercase letter in the password");
+      return;
+    }
+
+    CreateUserWithEmail(email, password)
+      .then(() => {
+        toast.success("Account Created...!");
+        updateProfileInfo(name, photoUrl)
+          .then(() => {
+            toast.success("User info updated...!");
+            setTimeout(() => {
+              navigate("/");
+            }, 1000);
+          })
+          .catch(() => {
+            toast.error("User info couldn't updated...!");
+          });
+      })
+      .catch((error) => {
+        if (error.message == "Firebase: Error (auth/email-already-in-use).")
+          toast.error("Email Already in Use...!");
+        else toast.error(error.message);
+      });
+    e.target.reset;
+  };
+
+  const HandleGoogleLogIn = () => {
+    GoogleSignIN()
+      .then((result) => {
+        console.log(result.user);
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error) toast.error(error.message);
+      });
   };
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      {/* <Toaster position="top-center" reverseOrder={false} /> */}
+      <Toaster position="top-center" reverseOrder={false} className="z-10" />
       <div className="w-full max-w-lg bg-white p-8 md:p-10 rounded-xl shadow-2xl border-t-4 border-indigo-600 space-y-3">
         <div className="text-center">
           <h2 className="text-3xl font-extrabold text-gray-900">
@@ -122,7 +178,7 @@ const Register = () => {
         <div>
           <button
             className="btn border-[#e5e5e5] w-full rounded-lg bg-black text-white hover:text-yellow-400"
-            // onClick={HandleGoogleLogIn}
+            onClick={HandleGoogleLogIn}
           >
             <FaGoogle />
             Sign In with Google
