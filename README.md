@@ -1,16 +1,53 @@
-# React + Vite
+# 📚 The Book Haven
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**The Book Haven** is a full-stack digital library web application where users can explore, add, update, and delete books. Authenticated users have their own control panel to manage book data. The project integrates **React.js**, **Node.js**, **Express.js**, **MongoDB**, and **Firebase Authentication** into one cohesive system.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌐 Live Site URL
 
-## React Compiler
+🔗 **Client (Frontend):** https://the-book-heaven-by-rifat.netlify.app/
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🚀 Key Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 🔐 **Firebase Authentication** — Secure login, registration, and Google login integration.
+- 📚 **Complete Book Management (CRUD)** — Users can add, view, update, and delete their own books.
+- 🌟 **Dynamic Home Page** — Displays the latest 6 books dynamically fetched from MongoDB.
+- 🧑‍💻 **User Dashboard** — Logged-in users can manage their own books in the _My Books_ section.
+- 💬 **Book Details Page** — Displays full information and user comments for each book.
+- ☀️🌙 **Light/Dark Theme Toggle** — Switch between modes seamlessly.
+- 🔍 **Filtering & Sorting** — Sort all books by rating (ascending or descending).
+- 🖼️ **Image Upload** — Upload cover images using **imgbb**.
+- 📱 **Fully Responsive Design** — Works smoothly across desktop, tablet, and mobile devices.
+- 🎉 **Toast Notifications** — All success/error messages shown using `react-hot-toast`.
+
+---
+
+## 🛠️ Technologies Used
+
+**Frontend:**
+
+- React.js
+- React Router
+- Tailwind CSS
+- Firebase Authentication
+- Axios
+- React Hot Toast
+- Date-fns
+- React Tooltip
+
+**Backend:**
+
+- Node.js
+- Express.js
+- MongoDB Atlas
+- Cors
+- dotenv
+
+**Hosting:**
+
+- **Frontend:** Netlify
+- **Backend:** Vercel
+- **Database:** MongoDB Atlas
