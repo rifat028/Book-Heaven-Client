@@ -1,14 +1,56 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { IoMdEyeOff } from "react-icons/io";
 import { IoEye } from "react-icons/io5";
+import { AuthContext } from "../Authentication/AuthContext";
+import { useNavigate } from "react-router";
+import toast, { Toaster } from "react-hot-toast";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [eye, setEye] = useState(false);
+  const { GoogleSignIN, SignInUser } = use(AuthContext);
+
+  const HandleLogIn = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    SignInUser(email, password)
+      .then(() => {
+        toast.success("Login Success");
+        // console.log(result.user);
+        setTimeout(() => {
+          navigate(location.state || "/");
+        }, 1000);
+      })
+      .catch((error) => {
+        // console.log(error);
+        if (
+          error == "FirebaseError: Firebase: Error (auth/invalid-credential)."
+        )
+          toast.error("invalid credential");
+        else toast.error(error.message);
+      });
+    e.target.password.value = "";
+  };
+
+  const HandleGoogleLogIn = () => {
+    GoogleSignIN()
+      .then(() => {
+        // console.log(result.user);
+        setTimeout(() => {
+          navigate(location.state || "/");
+        }, 1000);
+      })
+      .catch((error) => {
+        // console.log(error);
+        if (error) toast.error(error.message);
+      });
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      {/* <Toaster position="top-center" reverseOrder={false} /> */}
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="w-full max-w-md bg-white p-8 md:p-10 rounded-xl shadow-2xl border-t-4 border-indigo-600 space-y-4">
         <div className="text-center">
           <h2 className="text-3xl font-extrabold text-gray-900">
@@ -19,10 +61,7 @@ const Login = () => {
           </p>
         </div>
 
-        <form
-          className="space-y-3 "
-          // onSubmit={HandleLogIn}
-        >
+        <form className="space-y-3 " onSubmit={HandleLogIn}>
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Email Address
@@ -92,7 +131,7 @@ const Login = () => {
         <div>
           <button
             className="btn border-[#e5e5e5] w-full rounded-lg bg-black text-white hover:text-yellow-400"
-            // onClick={HandleGoogleLogIn}
+            onClick={HandleGoogleLogIn}
           >
             <FaGoogle />
             Sign In with Google

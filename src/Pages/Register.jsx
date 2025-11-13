@@ -64,14 +64,14 @@ const Register = () => {
 
   const HandleGoogleLogIn = () => {
     GoogleSignIN()
-      .then((result) => {
-        console.log(result.user);
+      .then(() => {
+        // console.log(result.user);
         setTimeout(() => {
           navigate("/");
         }, 1000);
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         if (error) toast.error(error.message);
       });
   };

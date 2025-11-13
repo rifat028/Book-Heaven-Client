@@ -1,9 +1,15 @@
-import React from "react";
+import React, { use } from "react";
 import logo from "../assets/Logo.jpg";
 import { NavLink, useNavigate } from "react-router";
+import { AuthContext } from "../Authentication/AuthContext";
+import toast, { Toaster } from "react-hot-toast";
+import { Tooltip } from "react-tooltip";
 
 const Header = () => {
   const navigate = useNavigate();
+  const { user, logOutUser } = use(AuthContext);
+
+  console.log(user);
 
   const links = (
     <>
@@ -22,8 +28,15 @@ const Header = () => {
     </>
   );
 
+  const HandleLogOut = () => {
+    logOutUser()
+      .then(() => toast.success("Sign Out Successful"))
+      .catch((error) => toast.error(error.message));
+  };
+
   return (
     <div className="navbar bg-base-100 shadow-sm">
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -62,22 +75,43 @@ const Header = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
-      <div className="navbar-end flex gap-4">
-        <button
-          onClick={() => navigate("/login")}
-          className=" bg-indigo-600 hover:bg-indigo-700 text-white font-bold 
+      {user ? (
+        <div className="navbar-end flex gap-4">
+          <button
+            onClick={HandleLogOut}
+            className=" bg-indigo-600 hover:bg-indigo-700 text-white font-bold 
                        py-2 px-4 rounded-full shadow-lg transition duration-300 transform hover:scale-105"
-        >
-          Sign In
-        </button>
-        <button
-          onClick={() => navigate("/register")}
-          className=" bg-indigo-600 hover:bg-indigo-700 text-white font-bold 
+          >
+            Sign Out
+          </button>
+          <div
+            className="ring-2 ring-blue-500 rounded-full border-gray-100 border-2"
+            data-tooltip-id="profile-name-tooltip"
+            data-tooltip-content={user.displayName}
+            data-tooltip-place="right"
+          >
+            <img src={user.photoURL} className="rounded-full h-8" />
+          </div>
+        </div>
+      ) : (
+        <div className="navbar-end flex gap-4">
+          <button
+            onClick={() => navigate("/login")}
+            className=" bg-indigo-600 hover:bg-indigo-700 text-white font-bold 
                        py-2 px-4 rounded-full shadow-lg transition duration-300 transform hover:scale-105"
-        >
-          Register
-        </button>
-      </div>
+          >
+            Sign In
+          </button>
+          <button
+            onClick={() => navigate("/register")}
+            className=" bg-indigo-600 hover:bg-indigo-700 text-white font-bold 
+                       py-2 px-4 rounded-full shadow-lg transition duration-300 transform hover:scale-105"
+          >
+            Register
+          </button>
+        </div>
+      )}
+      <Tooltip id="profile-name-tooltip" />
     </div>
   );
 };
