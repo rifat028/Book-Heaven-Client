@@ -77,21 +77,21 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4 dark:bg-black">
       <Toaster position="top-center" reverseOrder={false} className="z-10" />
-      <div className="w-full max-w-lg bg-white p-8 md:p-10 rounded-xl shadow-2xl border-t-4 border-indigo-600 space-y-3">
+      <div className="w-full max-w-lg bg-white p-8 md:p-10 rounded-xl shadow-2xl border-t-4 border-indigo-600 space-y-3 dark:bg-gray-800">
         <div className="text-center">
-          <h2 className="text-3xl font-extrabold text-gray-900">
+          <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white">
             Create Your Account
           </h2>
-          <p className="mt-2 text-sm text-gray-600">
+          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
             Join us and start exploring books today.
           </p>
         </div>
 
         <form className="space-y-3" onSubmit={HandleRegister}>
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
               Full Name <span className="text-red-500">*</span>
             </label>
             <div className="mt-1">
@@ -100,13 +100,13 @@ const Register = () => {
                 type="text"
                 placeholder="Your name Here"
                 required
-                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
+                className=" dark:bg-gray-700 appearance-none block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm placeholder-gray-500 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
               Email Address<span className="text-red-500">*</span>
             </label>
             <div className="mt-1">
@@ -115,13 +115,13 @@ const Register = () => {
                 type="email"
                 placeholder="you@example.com"
                 required
-                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
+                className=" dark:bg-gray-700 appearance-none block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm placeholder-gray-500 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
               Photo URL
             </label>
             <div className="mt-1">
@@ -129,13 +129,13 @@ const Register = () => {
                 name="photoUrl"
                 type="photoUrl"
                 placeholder="URL of The Photo Here"
-                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
+                className=" dark:bg-gray-700 appearance-none block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm placeholder-gray-500 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
               Password<span className="text-red-500">*</span>
             </label>
             <div className="mt-1 relative">
@@ -144,7 +144,7 @@ const Register = () => {
                 type={eye ? "text" : "password"}
                 placeholder="Create a strong password"
                 required
-                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
+                className=" dark:bg-gray-700 appearance-none block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm placeholder-gray-500 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
               />
               <div
                 className="absolute top-3 right-2"
@@ -186,11 +186,11 @@ const Register = () => {
         </div>
 
         <div className="text-center pt-2">
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
             Already have an account?
             <a
               href="/login"
-              className="font-bold text-indigo-600 hover:text-indigo-700 ml-1"
+              className="font-bold text-indigo-600 hover:text-indigo-700 ml-1 dark:text-white"
             >
               Log In
             </a>

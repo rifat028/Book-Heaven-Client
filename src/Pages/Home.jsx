@@ -12,9 +12,7 @@ const Home = () => {
     <div>
       <Banner></Banner>
       <TopGenres></TopGenres>
-      <Suspense>
-        <LatestBooks latestBooks={latestBooks}></LatestBooks>
-      </Suspense>
+      <LatestBooks latestBooks={latestBooks}></LatestBooks>
       <About></About>
     </div>
   );

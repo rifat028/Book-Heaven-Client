@@ -12,7 +12,7 @@ const About = () => {
     <section className="about-us container mx-auto px-4 py-16">
       <div
         className="bg-white dark:bg-gray-800 p-8 md:p-12 lg:p-16 rounded-3xl shadow-2xl 
-                   border-t-4 border-indigo-500 dark:border-yellow-500 transition duration-500"
+                    dark:border-yellow-500 transition duration-500"
       >
         {/* Main Title and Core Message */}
         <h2 className="text-3xl md:text-4xl pb-2 font-extrabold mb-4 text-center text-gray-900 dark:text-white">
@@ -31,7 +31,7 @@ const About = () => {
           {valuePropositions.map((prop, index) => (
             <div
               key={index}
-              className="p-4  border-y-2 md:border-y-0 md:border-x-2 border-blue-500 hover:bg-gray-50"
+              className="p-4  border-y-2 md:border-y-0 md:border-x-2 border-blue-500 hover:bg-gray-50 dark:hover:bg-black"
             >
               <span className="text-4xl mb-3 block">{prop.icon}</span>
               <p className="text-lg font-semibold text-gray-800 dark:text-gray-200">

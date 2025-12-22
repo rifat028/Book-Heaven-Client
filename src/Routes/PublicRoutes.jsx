@@ -6,6 +6,10 @@ import MyBooks from "../Pages/MyBooks";
 import AddBooks from "../Pages/AddBooks";
 import AllBooks from "../Pages/AllBooks";
 import Layout from "../Layout/Layout";
+import BookDetails from "../Pages/BookDetails";
+import PrivateRoutes from "./PrivateRoutes";
+import PageNotFound from "../Components/PageNotFound";
+import BookNotFound from "../Components/BookNotFound";
 
 const router = createBrowserRouter([
   {
@@ -15,7 +19,8 @@ const router = createBrowserRouter([
       {
         index: true,
         path: "/",
-        loader: () => fetch("http://localhost:3000/books/latest"),
+        loader: () =>
+          fetch("https://backup-server-book-heaven.onrender.com/books/latest"),
         Component: Home,
       },
       {
@@ -27,20 +32,51 @@ const router = createBrowserRouter([
         Component: Register,
       },
       {
-        path: "/Register",
-        Component: Register,
-      },
-      {
         path: "/all-books",
+        loader: () =>
+          fetch("https://backup-server-book-heaven.onrender.com/books"),
         Component: AllBooks,
       },
       {
+        path: "/all-books/:id",
+        loader: ({ params }) =>
+          fetch(
+            `https://backup-server-book-heaven.onrender.com/books/${params.id}`
+          ),
+        element: (
+          <PrivateRoutes>
+            <BookDetails></BookDetails>
+          </PrivateRoutes>
+        ),
+        errorElement: <BookNotFound></BookNotFound>, //not working in this case. See BookDetails.jsx
+      },
+      {
         path: "/my-books",
-        Component: MyBooks,
+        loader: ({ request }) => {
+          const url = new URL(request.url);
+          const email = url.searchParams.get("userEmail");
+          // console.log("Loader email:", email);
+          return fetch(
+            `https://backup-server-book-heaven.onrender.com/books?userEmail=${email}`
+          ).then((res) => res.json());
+        },
+        element: (
+          <PrivateRoutes>
+            <MyBooks></MyBooks>
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/add-books",
-        Component: AddBooks,
+        element: (
+          <PrivateRoutes>
+            <AddBooks></AddBooks>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "*",
+        Component: PageNotFound,
       },
     ],
   },

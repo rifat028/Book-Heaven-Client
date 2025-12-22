@@ -9,10 +9,10 @@ const LatestBooks = ({ latestBooks }) => {
       </h4>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {latestBooks.slice(0, 6).map((book) => (
+        {latestBooks.map((book) => (
           <div
             key={book._id}
-            className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition duration-300"
+            className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-xl transition duration-300  dark:bg-gray-800"
           >
             <img
               src={book.coverImage}
@@ -21,12 +21,16 @@ const LatestBooks = ({ latestBooks }) => {
             />
             <div className="p-4">
               <h3 className="text-lg font-semibold mb-1">{book.title}</h3>
-              <p className="text-gray-600 text-sm mb-2">by {book.author}</p>
-              <p className="text-sm text-gray-500 mb-2">Genre: {book.genre}</p>
+              <p className="text-gray-600 text-sm mb-2 dark:text-gray-300">
+                by {book.author}
+              </p>
+              <p className="text-sm text-gray-500 mb-2 dark:text-gray-300">
+                Genre: {book.genre}
+              </p>
               <p className="text-yellow-500 text-sm mb-2">
                 ⭐ Rating: {book.rating}
               </p>
-              <p className="text-gray-700 text-sm line-clamp-3">
+              <p className="text-gray-700 text-sm line-clamp-3 dark:text-gray-400">
                 {book.summary}
               </p>
             </div>

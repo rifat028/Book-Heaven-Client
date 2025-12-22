@@ -1,15 +1,18 @@
-import React, { use } from "react";
+import React, { use, useState } from "react";
 import logo from "../assets/Logo.jpg";
 import { NavLink, useNavigate } from "react-router";
 import { AuthContext } from "../Authentication/AuthContext";
 import toast, { Toaster } from "react-hot-toast";
 import { Tooltip } from "react-tooltip";
+import Spinner from "../Components/Spinner";
+import { ScaleLoader } from "react-spinners";
 
 const Header = () => {
   const navigate = useNavigate();
-  const { user, logOutUser } = use(AuthContext);
+  const { user, logOutUser, loading } = use(AuthContext);
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
-  // console.log(user);
+  // console.log(user, user.photoURL);
 
   const links = (
     <>
@@ -20,7 +23,9 @@ const Header = () => {
         <NavLink to="/all-books">All Books</NavLink>
       </li>
       <li className="font-bold">
-        <NavLink to="/my-books">My Books</NavLink>
+        <NavLink to={user ? `/my-books?userEmail=${user.email}` : `/my-books`}>
+          My Books
+        </NavLink>
       </li>
       <li className="font-bold">
         <NavLink to="/add-books">Add Books</NavLink>
@@ -33,6 +38,22 @@ const Header = () => {
       .then(() => toast.success("Sign Out Successful"))
       .catch((error) => toast.error(error.message));
   };
+
+  const HandleTheme = (e) => {
+    // console.log(e.target.checked);
+    const status = e.target.checked;
+    // console.log(html.getAttribute("data-theme"));
+    if (status) {
+      localStorage.setItem("theme", "dark");
+      setTheme("dark");
+    } else {
+      localStorage.setItem("theme", "light");
+      setTheme("light");
+    }
+  };
+
+  const html = document.querySelector("html");
+  html.setAttribute("data-theme", theme);
 
   return (
     <div className="navbar bg-base-100 shadow-sm">
@@ -75,14 +96,25 @@ const Header = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
-      {user ? (
+      {user && loading ? (
         <div className="navbar-end flex gap-4">
+          <ScaleLoader color={"#7C3AED"} />
+        </div>
+      ) : user ? (
+        <div className="navbar-end flex gap-4">
+          <input
+            type="checkbox"
+            defaultChecked={theme == "dark"}
+            onChange={HandleTheme}
+            value="synthwave"
+            className="toggle"
+          />
           <button
             onClick={HandleLogOut}
             className=" bg-indigo-600 hover:bg-indigo-700 text-white font-bold 
                        py-2 px-4 rounded-full shadow-lg transition duration-300 transform hover:scale-105"
           >
-            Sign Out
+            Log Out
           </button>
           <div
             className="ring-2 ring-blue-500 rounded-full border-gray-100 border-2"
@@ -95,16 +127,23 @@ const Header = () => {
         </div>
       ) : (
         <div className="navbar-end flex gap-4">
+          <input
+            type="checkbox"
+            defaultChecked={theme == "dark"}
+            onChange={HandleTheme}
+            value="synthwave"
+            className="toggle"
+          />
           <button
             onClick={() => navigate("/login")}
             className=" bg-indigo-600 hover:bg-indigo-700 text-white font-bold 
                        py-2 px-4 rounded-full shadow-lg transition duration-300 transform hover:scale-105"
           >
-            Sign In
+            LogIn
           </button>
           <button
             onClick={() => navigate("/register")}
-            className=" bg-indigo-600 hover:bg-indigo-700 text-white font-bold 
+            className=" bg-indigo-600 hover:bg-indigo-700 text-white font-bold hidden md:block
                        py-2 px-4 rounded-full shadow-lg transition duration-300 transform hover:scale-105"
           >
             Register

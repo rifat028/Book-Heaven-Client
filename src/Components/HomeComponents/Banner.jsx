@@ -13,7 +13,7 @@ const Banner = () => {
       text: "Dive into our vast, user-curated collection and discover hidden gems.",
       buttonText: "Explore All Books",
       buttonLink: "/all-books",
-      gradient: "from-blue-700 to-indigo-800",
+      gradient: "from-blue-700 to-indigo-800 dark:from-gray-900 to-indigo-900",
       buttonClasses: "bg-yellow-400 hover:bg-yellow-500 text-blue-900",
     },
     {
@@ -21,7 +21,7 @@ const Banner = () => {
       text: "Share your favorite books with the community in a few simple steps.",
       buttonText: "Create New Book",
       buttonLink: "/add-books",
-      gradient: "from-indigo-800 to-purple-900",
+      gradient: "from-indigo-800 to-purple-900 dark:from-gray-900 to-blue-900",
       buttonClasses: "bg-yellow-400 hover:bg-yellow-500 text-blue-900",
     },
   ];

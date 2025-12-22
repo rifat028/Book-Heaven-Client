@@ -1,11 +1,12 @@
-import React, { use } from "react";
-import { AuthContext } from "../Authentication/AuthContext";
+import React, { use, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { AuthContext } from "../../Authentication/AuthContext";
 import { useNavigate } from "react-router";
 
-const AddBooks = () => {
+const EditBook = ({ book, books, setBooks }) => {
   const { user } = use(AuthContext);
   const navigate = useNavigate(null);
+  const [newBook, setNewBook] = useState({});
 
   // Handle form submit
   const handleSubmit = (e) => {
@@ -20,7 +21,7 @@ const AddBooks = () => {
     const userEmail = e.target.userEmail.value;
     const userName = e.target.userName.value;
 
-    const newBook = {
+    const updatedBook = {
       title,
       author,
       genre,
@@ -30,34 +31,39 @@ const AddBooks = () => {
       userEmail,
       userName,
     };
-    // console.log(newBook);
+    setNewBook(updatedBook);
 
-    fetch("https://backup-server-book-heaven.onrender.com/books", {
-      method: "POST",
+    fetch(`https://backup-server-book-heaven.onrender.com/books/${book._id}`, {
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newBook),
+      body: JSON.stringify(updatedBook),
     })
       .then((res) => res.json())
       .then((data) => {
-        // console.log("book added", data);
-        if (data.insertedId) {
-          toast.success("Book added Successfully...!");
-          e.target.reset();
-          navigate(`/my-books${user && `?userEmail=${user.email}`}`);
-        } else toast.error("Book was not added...!");
+        console.log("book updated", data);
+        if (data.modifiedCount == 1) {
+          const updatedBooks = books.map((currBook) => {
+            if (currBook._id !== book._id) return currBook;
+            // Merge updates but keep the object reference order intact
+            return { ...currBook, ...updatedBook };
+          });
+          console.log("Books after Update:", updatedBooks);
+          setBooks(updatedBooks);
+          toast.success("Book updated Successfully...!");
+        } else toast.error("Book could not updated...!");
       });
   };
 
   return (
     <div className="w-full max-w-4xl mx-auto p-4 sm:p-8">
-      <Toaster position="top-center" reverseOrder={false} />
+      <Toaster position="bottom-center" reverseOrder={false} />
       {/* ---------- TOP SECTION ---------- */}
       <div className="bg-linear-to-r from-purple-500 to-indigo-600 text-white rounded-2xl p-6 shadow-lg mb-8">
-        <h1 className="text-2xl sm:text-3xl font-bold">Add a New Book</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold">Update Your Book</h1>
         <p className="text-sm sm:text-base mt-2 opacity-90">
-          Fill out the form below to add a book to the library.
+          Update information in the form below to update your book.
         </p>
       </div>
 
@@ -74,6 +80,7 @@ const AddBooks = () => {
           <input
             type="text"
             name="title"
+            defaultValue={book.title}
             className="input input-bordered w-full dark:bg-gray-700 dark:text-white"
             required
           />
@@ -87,6 +94,7 @@ const AddBooks = () => {
           <input
             type="text"
             name="author"
+            defaultValue={book.author}
             className="input input-bordered w-full dark:bg-gray-700 dark:text-white"
             required
           />
@@ -100,6 +108,7 @@ const AddBooks = () => {
           <input
             type="text"
             name="genre"
+            defaultValue={book.genre}
             className="input input-bordered w-full dark:bg-gray-700 dark:text-white"
             required
           />
@@ -112,6 +121,7 @@ const AddBooks = () => {
           </label>
           <select
             name="rating"
+            defaultValue={book.rating}
             className="w-full input input-bordered dark:bg-gray-700 dark:text-white"
             required
           >
@@ -132,6 +142,7 @@ const AddBooks = () => {
           <input
             type="text"
             name="coverImage"
+            defaultValue={book.coverImage}
             className="input input-bordered w-full dark:bg-gray-700 dark:text-white"
             required
           />
@@ -144,6 +155,7 @@ const AddBooks = () => {
           </label>
           <textarea
             name="summary"
+            defaultValue={book.summary}
             rows="4"
             className="textarea textarea-bordered w-full dark:bg-gray-700 dark:text-white"
             required
@@ -159,7 +171,7 @@ const AddBooks = () => {
             type="email"
             name="userEmail"
             className="input input-bordered w-full dark:bg-gray-700 dark:text-white"
-            defaultValue={user?.email}
+            defaultValue={book.userEmail}
             required
           />
         </div>
@@ -173,7 +185,7 @@ const AddBooks = () => {
             type="text"
             name="userName"
             className="input input-bordered w-full dark:bg-gray-700 dark:text-white"
-            defaultValue={user?.displayName}
+            defaultValue={book.userName || user?.displayName}
             required
           />
         </div>
@@ -184,7 +196,7 @@ const AddBooks = () => {
             type="submit"
             className="btn w-full bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl"
           >
-            Add Book
+            Update Book
           </button>
         </div>
       </form>
@@ -192,4 +204,4 @@ const AddBooks = () => {
   );
 };
 
-export default AddBooks;
+export default EditBook;
