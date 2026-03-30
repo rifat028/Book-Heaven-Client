@@ -33,13 +33,16 @@ const EditBook = ({ book, books, setBooks }) => {
     };
     setNewBook(updatedBook);
 
-    fetch(`https://backup-server-book-heaven.onrender.com/books/${book._id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
+    fetch(
+      `https://book-heaven-server-m5t7susex-istiak-ahmad-rifats-projects.vercel.app/books/${book._id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedBook),
       },
-      body: JSON.stringify(updatedBook),
-    })
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log("book updated", data);

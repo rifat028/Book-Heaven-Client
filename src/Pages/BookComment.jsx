@@ -8,7 +8,7 @@ const BookComment = ({ book }) => {
 
   useEffect(() => {
     fetch(
-      `https://backup-server-book-heaven.onrender.com/comments?bookID=${book._id}`
+      `https://book-heaven-server-m5t7susex-istiak-ahmad-rifats-projects.vercel.app/comments?bookID=${book._id}`,
     )
       .then((res) => res.json())
       .then((data) => setComments(data));
@@ -32,13 +32,16 @@ const BookComment = ({ book }) => {
         bookID: book._id,
       };
       //   console.log(newComment);
-      fetch("https://backup-server-book-heaven.onrender.com/comments", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      fetch(
+        "https://book-heaven-server-m5t7susex-istiak-ahmad-rifats-projects.vercel.app/comments",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newComment),
         },
-        body: JSON.stringify(newComment),
-      })
+      )
         .then((res) => res.json())
         .then((result) => {
           if (result.insertedId) {

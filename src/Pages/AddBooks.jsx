@@ -32,13 +32,16 @@ const AddBooks = () => {
     };
     // console.log(newBook);
 
-    fetch("https://backup-server-book-heaven.onrender.com/books", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    fetch(
+      "https://book-heaven-server-m5t7susex-istiak-ahmad-rifats-projects.vercel.app/books",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newBook),
       },
-      body: JSON.stringify(newBook),
-    })
+    )
       .then((res) => res.json())
       .then((data) => {
         // console.log("book added", data);
