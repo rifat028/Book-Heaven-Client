@@ -7,13 +7,13 @@ const AllBooks = () => {
   const allBooks = useLoaderData();
 
   const defaultSortBooks = fetch(
-    "https://book-heaven-server-m5t7susex-istiak-ahmad-rifats-projects.vercel.app/books",
+    "https://book-heaven-server-two.vercel.app/books",
   ).then((res) => res.json());
   const ascendingSortBooks = fetch(
-    "https://book-heaven-server-m5t7susex-istiak-ahmad-rifats-projects.vercel.app/books?sort=asc",
+    "https://book-heaven-server-two.vercel.app/books?sort=asc",
   ).then((res) => res.json());
   const descendingSortBooks = fetch(
-    "https://book-heaven-server-m5t7susex-istiak-ahmad-rifats-projects.vercel.app/books?sort=dsc",
+    "https://book-heaven-server-two.vercel.app/books?sort=dsc",
   ).then((res) => res.json());
 
   const [bookPromise, setBookPromise] = useState(defaultSortBooks);

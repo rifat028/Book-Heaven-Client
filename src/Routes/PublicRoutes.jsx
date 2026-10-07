@@ -20,9 +20,7 @@ const router = createBrowserRouter([
         index: true,
         path: "/",
         loader: () =>
-          fetch(
-            "https://book-heaven-server-m5t7susex-istiak-ahmad-rifats-projects.vercel.app/books/latest",
-          ),
+          fetch("https://book-heaven-server-two.vercel.app/books/latest"),
         Component: Home,
       },
       {
@@ -35,18 +33,13 @@ const router = createBrowserRouter([
       },
       {
         path: "/all-books",
-        loader: () =>
-          fetch(
-            "https://book-heaven-server-m5t7susex-istiak-ahmad-rifats-projects.vercel.app/books",
-          ),
+        loader: () => fetch("https://book-heaven-server-two.vercel.app/books"),
         Component: AllBooks,
       },
       {
         path: "/all-books/:id",
         loader: ({ params }) =>
-          fetch(
-            `https://book-heaven-server-m5t7susex-istiak-ahmad-rifats-projects.vercel.app/books/${params.id}`,
-          ),
+          fetch(`https://book-heaven-server-two.vercel.app/books/${params.id}`),
         element: (
           <PrivateRoutes>
             <BookDetails></BookDetails>
@@ -61,7 +54,7 @@ const router = createBrowserRouter([
           const email = url.searchParams.get("userEmail");
           // console.log("Loader email:", email);
           return fetch(
-            `https://book-heaven-server-m5t7susex-istiak-ahmad-rifats-projects.vercel.app/books?userEmail=${email}`,
+            `https://book-heaven-server-two.vercel.app/books?userEmail=${email}`,
           ).then((res) => res.json());
         },
         element: (

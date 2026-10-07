@@ -32,16 +32,13 @@ const AddBooks = () => {
     };
     // console.log(newBook);
 
-    fetch(
-      "https://book-heaven-server-m5t7susex-istiak-ahmad-rifats-projects.vercel.app/books",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newBook),
+    fetch("https://book-heaven-server-two.vercel.app/books", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    )
+      body: JSON.stringify(newBook),
+    })
       .then((res) => res.json())
       .then((data) => {
         // console.log("book added", data);

@@ -33,16 +33,13 @@ const EditBook = ({ book, books, setBooks }) => {
     };
     setNewBook(updatedBook);
 
-    fetch(
-      `https://book-heaven-server-m5t7susex-istiak-ahmad-rifats-projects.vercel.app/books/${book._id}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedBook),
+    fetch(`https://book-heaven-server-two.vercel.app/books/${book._id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
       },
-    )
+      body: JSON.stringify(updatedBook),
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log("book updated", data);

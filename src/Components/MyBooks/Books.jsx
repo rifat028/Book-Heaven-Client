@@ -22,12 +22,9 @@ const Books = ({ myBooks }) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(
-          `https://book-heaven-server-m5t7susex-istiak-ahmad-rifats-projects.vercel.app/books/${id}`,
-          {
-            method: "DELETE",
-          },
-        )
+        fetch(`https://book-heaven-server-two.vercel.app/books/${id}`, {
+          method: "DELETE",
+        })
           .then((res) => res.json())
           .then((data) => {
             // console.log("book deleted", data);
